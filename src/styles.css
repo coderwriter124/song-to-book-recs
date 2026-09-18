@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 const COLORS = ['plum', 'wine', 'gold', 'sage', 'blue', 'rose'];
+const MOODS = ['dreamy', 'heartbreak', 'cozy', 'rock', 'nostalgic', 'main character'];
 
 const MOOD_WORDS = {
   dreamy: ['dream', 'night', 'moon', 'magic', 'wonder', 'soft', 'midnight', 'ethereal'],
@@ -28,8 +29,6 @@ const STARTER_BOOKS = [
   description: `A ${tone.replace(' · ', ' and ')} read for this song's feeling.`,
   links: makeLinks(title, author),
 }));
-
-const MOODS = ['dreamy', 'heartbreak', 'cozy', 'rock', 'nostalgic', 'main character'];
 
 function makeLinks(title, author = '') {
   const query = encodeURIComponent(`${title} ${author}`);
@@ -204,7 +203,7 @@ export default function App() {
       setMood(result.mood);
       setSearched(query);
       setMessage(`Matched “${foundTrack.title}” by ${foundTrack.artist} to a ${result.mood} mood.`);
-    } catch (error) {
+    } catch {
       setTrack(null);
       setBooks(STARTER_BOOKS);
       setSearched(query);
@@ -241,9 +240,9 @@ export default function App() {
 
   return (
     <div className="page">
-      <header>
+      <header className="topbar">
         <a className="logo" href="/">✦ verse</a>
-        <div className="header-note">books, by feeling · ♡ {favorites.length}</div>
+        <div className="header-note">books, by feeling · ♥ {favorites.length}</div>
       </header>
 
       <main>
@@ -254,7 +253,7 @@ export default function App() {
             Search a real song. Verse matches the actual track title, artist, and album to a local mood model and recommends books that fit that feeling.
           </p>
 
-          <form onSubmit={submit}>
+          <form onSubmit={submit} className="search-form">
             <span className="magnify">⌕</span>
             <input
               value={song}
@@ -374,7 +373,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer>
+      <footer className="footer">
         <span>Made for curious readers</span>
         <span>Local AI-style matching · no key required</span>
       </footer>
