@@ -1,6 +1,6 @@
 # Verse — book recommendations by song
 
-Verse searches a song and matches it to real books.
+Verse searches a real song, plays an available Deezer preview, and finds real books through Google Books.
 
 ## Run in Windows Command Prompt
 
@@ -11,12 +11,14 @@ npm install
 npm run dev
 ```
 
-Open the URL shown by Vite, usually `http://localhost:5173`.
+Open `http://localhost:5173`.
 
-## What it uses
+## Features
 
-- **Deezer public search:** finds the track, artist, album art, and an official 30-second preview URL that plays in the app when available.
-- **Google Books:** searches real book metadata, descriptions, thumbnails, and information links using the song, artist, and inferred mood.
-- **Goodreads:** each result includes a Goodreads search link. Verse links to Goodreads rather than scraping it, which is more reliable and respectful of the site.
+- Deezer live track search with album art, artist, album, and preview URL.
+- A visible Play button plus native audio controls. Browsers require a click before audio can start; full songs are not available through the public preview endpoint.
+- Google Books results with **Google Books**, **Google search**, and Goodreads buttons on every card.
+- Real book titles, authors, descriptions, and covers when Google Books supplies them.
+- Starter books and working search links when a public service is unavailable.
 
-The app uses public browser requests and does not require an API key for normal low-volume use. Public services can still rate-limit requests, so the starter books appear if a service is unavailable. Full-song playback requires opening the official Deezer track page; the embedded preview is limited to the provider's preview length.
+The app makes public browser requests without an API key. Services may rate-limit requests. Goodreads is linked through search results rather than scraped.
