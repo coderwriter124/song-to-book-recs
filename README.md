@@ -1,8 +1,8 @@
 # Verse — song-to-book recommendations
 
-Verse searches a song, plays an available legal preview, and loads many real books with covers and links.
+Verse finds a real song, plays an available legal preview, and recommends real books based on that actual track's title, artist, album, and Open Library subject metadata.
 
-## Run in Windows Command Prompt
+## Run
 
 ```cmd
 cd /d C:\Users\priya\song-to-book-recs
@@ -11,14 +11,17 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`.
+Open the Vite URL, usually `http://localhost:5173`.
 
-## What changed
+## How the no-key AI system works
 
-- **Google Books 429 fixed:** Google Books is now optional. The app uses Open Library first, which provides real book records and cover images without a Google API quota.
-- **Many books:** up to 12 real Open Library results are shown.
-- **Song playback:** Deezer is tried first; iTunes/Apple’s public preview endpoint is used as a fallback. Both provide short previews only when the provider has one.
-- **Spotify:** the app opens an official Spotify search link. Spotify does not allow full songs to play in an unauthenticated custom app; full playback requires Spotify’s official SDK, a Spotify account, and user authorization.
-- **Goodreads:** Goodreads links are provided for every result. Goodreads does not offer a dependable public browser search API, so the app does not scrape Goodreads.
+The app does not pretend that a browser can understand a full copyrighted audio file or lyrics without a provider. After the song is found, it builds a signal from the actual track title, artist, and album. It then:
 
-If one public service is rate-limited or unavailable, the app falls back instead of stopping at the Google Books quota error.
+1. Infers several mood signals locally from those words.
+2. Searches Open Library for up to 50 candidate books using the real track metadata and moods.
+3. Scores every candidate against its title, author, and Open Library subjects.
+4. Sorts the strongest 12 matches and explains the mood match on each card.
+
+This is a small deterministic, AI-style recommendation model that needs no AI API key. Open Library supplies real books and covers. Goodreads links open Goodreads search pages rather than scraping Goodreads.
+
+A preview player is included when Deezer or Apple provides a preview URL. Full-song Spotify playback requires Spotify authorization and its official SDK; the app provides a Spotify search link instead.
