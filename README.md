@@ -1,6 +1,6 @@
 # Verse — book recommendations by song
 
-A browser app that turns a song title, artist, or feeling into three book recommendations. It uses a small local mood-matching model, so it needs no AI API key, account, or backend.
+Verse searches a song and matches it to real books.
 
 ## Run in Windows Command Prompt
 
@@ -13,6 +13,10 @@ npm run dev
 
 Open the URL shown by Vite, usually `http://localhost:5173`.
 
-## Notes
+## What it uses
 
-The app cannot legally stream arbitrary commercial songs by itself. The “listen while you read” link opens a YouTube search for the song. A future version could add an official Spotify or YouTube integration with the provider’s permissions.
+- **Deezer public search:** finds the track, artist, album art, and an official 30-second preview URL that plays in the app when available.
+- **Google Books:** searches real book metadata, descriptions, thumbnails, and information links using the song, artist, and inferred mood.
+- **Goodreads:** each result includes a Goodreads search link. Verse links to Goodreads rather than scraping it, which is more reliable and respectful of the site.
+
+The app uses public browser requests and does not require an API key for normal low-volume use. Public services can still rate-limit requests, so the starter books appear if a service is unavailable. Full-song playback requires opening the official Deezer track page; the embedded preview is limited to the provider's preview length.
